@@ -1,5 +1,8 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  .container
+    h1=Search
+    form(action="/results", method='get')
+      input(id='searchField', placeholder='Search', name='q', type='search')
+      input(type='submit', value='Search')
