@@ -1,8 +1,30 @@
 extends layout
 
 block content
-  .container
-    h1=Search
-    form(action="/results", method='get')
-      input(id='searchField', placeholder='Search', name='q', type='search')
-      input(type='submit', value='Search')
+  div(class="row")
+    div(class="col-xs-8 col-xs-offset-2")
+      h1 The Collection
+      h4  Printer of some of the most significant documents in New Zealand history, missionary, explorer and botanist, a free wheeling politician and controversialist – discover William Colenso through his documents
+  div(class="row")
+    div(class="col-xs-8 col-xs-offset-2")
+      form(action="/results", method='get')
+        div(class="form-group", id="searchFieldDiv")
+          input(id='searchField', class="form-control", placeholder='Search the collection', name='q', type='search')
+        div(class="form-group", id="searchTypeRadios")
+          label(class="radio-inline")
+            input(type="radio", name="searchType", id="basicSearch", value="basic", checked)
+            |Basic
+          label(class="radio-inline")
+            input(type="radio", name="searchType", id="advancedSearch", value="advanced")
+            |Advanced
+
+
+
+  div(class="row")
+    div(class="col-xs-8 col-xs-offset-2", id="helpText")
+      p Here is the help text, it should toggle along with Basic and
+      | advanced
+
+
+  block scripts
+    script(src="javascripts/index_jq.js")

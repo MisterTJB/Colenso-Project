@@ -1,9 +1,14 @@
 extends ../node_modules/jade-bootstrap/_bootstrap
 
+block styles
+  link(rel="stylesheet",href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css")
+  link(rel="stylesheet", href="stylesheets/style.css")
+
+
 block body
 
   block header
     +navbar("Colenso Project", "dropdown_menu")
       +nav_item("/", "active") Home
       +nav_item("/browse") Browse
-    block content
+  block content
