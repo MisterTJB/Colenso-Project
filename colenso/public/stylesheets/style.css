@@ -1,8 +1,7 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+h1 {
+  color: #FDAC61;
 }
 
-a {
-  color: #00B7FF;
+#searchFieldDiv {
+  margin-bottom: 3px;
 }
