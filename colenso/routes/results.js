@@ -33,7 +33,7 @@ function basicSearch(searchTerms){
 
         <result
           title="{$letter//title/text()}"
-          author="{$letter//author/name/text()}"
+          author="{$letter/TEI/teiHeader/fileDesc/titleStmt/author/name/text()}"
           uri="{document-uri($letter)}"/>
     }</results>, map{'format': 'jsonml'})`
   return namespace + searchString.replace("%SEARCH_TERMS%", searchTerms);
