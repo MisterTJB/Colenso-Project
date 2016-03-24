@@ -19,7 +19,7 @@ router.get('/:letter', function(req, res, next) {
   var xmlData = client.execute(interpolatedQuery, function(error, result){
 
     if (!error) {
-      res.render('results', {data: result.result});
+      res.render('letters', {data: result.result});
 
     } else {
       console.log(error);
