@@ -39,11 +39,33 @@ function basicSearch(searchTerms){
   return namespace + searchString.replace("%SEARCH_TERMS%", searchTerms);
 }
 
+function advancedSearch(xquery){
+  searchString = ` json:serialize(
+  <results>{
+  for $letter in db:open("Colenso")
+  where $letter%XQUERYEXPRESSION%
+
+  return
+
+        <result
+          title="{$letter//title/text()}"
+          author="{$letter/TEI/teiHeader/fileDesc/titleStmt/author/name/text()}"
+          uri="{document-uri($letter)}"/>
+    }</results>, map{'format': 'jsonml'})`
+  return namespace + searchString.replace("%XQUERYEXPRESSION%", xquery);
+
+}
+
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   console.log(req.query);
   client.execute("OPEN Colenso");
+
   var query = basicSearch(req.query.q);
+  if (req.query.type === 'advanced') {
+    query = advancedSearch(req.query.q);
+  }
+
   console.log(query);
   client.execute(query, function(error, result){
     if (!error) {
