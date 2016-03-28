@@ -11,6 +11,11 @@ var query = `
   return $letter
 `
 
+var deleteQuery = `
+XQUERY
+let $documentURI := document-uri(%IDENTIFIER%)
+return db:delete("Colenso", $documentURI)`
+
 /* GET users listing. */
 router.get('/:letter', function(req, res, next) {
   console.log(next);
@@ -18,10 +23,12 @@ router.get('/:letter', function(req, res, next) {
   console.log(query);
   var xmlData = client.execute(interpolatedQuery, function(error, result){
 
-    if (!error) {
+    if (!error && result.result.length > 0) {
       res.render('letters', {data: result.result, letterID: req.params.letter});
 
-    } else {
+    } else if (result.result.length == 0){
+      res.render('error', {message: req.params.letter + " does not exist", error: {status: "404", stack: ""}});
+    }else {
       console.log(error);
     }
 
@@ -50,6 +57,18 @@ router.get('/:letter/download', function(req, res, next){
     }
 
   });
+});
+
+router.get('/:letter/delete', function(req, res, next){
+  client.execute("OPEN Colenso");
+  client.execute(`DELETE "%FILE%"`.replace("%FILE%", req.params.letter + ".xml"), function(error, result){
+    if (!error) {
+      console.log(result.result);
+    } else {
+      console.log(error);
+    }
+  });
+  client.execute("CLOSE Colenso");
 });
 
 module.exports = router;
