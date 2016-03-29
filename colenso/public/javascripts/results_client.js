@@ -26,3 +26,28 @@ $("#resultType").click(function(){
   }
 
 });
+
+
+$("#searchFilterButton").click(function(){
+
+  var resultURIs = [];
+  $(".search-result").each(function(){
+    resultURIs.push(this.id);
+  });
+  console.log(resultURIs);
+  data = {
+    uris: resultURIs,
+    q: $("#searchFilterInput").val()
+  }
+  $.post("/searchFilter", data, function(response){
+    var resultsHTML = $.parseHTML(response);
+    $("#results").replaceWith(resultsHTML);
+    var results = $(".search-result").length;
+    var queryPath = $('.searchTerm').text();
+    queryPath = queryPath + " > " + $("#searchFilterInput").val();
+
+    $('.searchTerm').text(queryPath);
+    $('.resultsCount').text(results);
+
+  });
+});

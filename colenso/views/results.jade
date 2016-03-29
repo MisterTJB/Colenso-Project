@@ -4,14 +4,22 @@ block content
   div(class='page-header')
     h1 Search Results
     a(id="resultType") Advanced
-    h4(class="searchTerm") Search term: #{query}
+    a(id="?")  Download
+
+    div(class="input-group")
+      input(type="search" class="form-control" placeholder="Search within results" id="searchFilterInput")
+      span(class="input-group-btn")
+        button(class="btn btn-default", type="button", id="searchFilterButton") Search
+
+    h5(class="searchTerm") Search term: #{query.q}
     h6(class="resultsCount") #{results} results
+
 
   div(class="row")
     div(class="col-xs-8 col-xs-offset-2")
-      div(class="list-group")
+      div(class="list-group", id="results")
         each result in data
-          a(href="/letters/#{result.uri}", class="list-group-item")
+          a(href="/letters/#{result.uri}", class="list-group-item search-result", id="#{result.databaseURI}")
             h4(class="list-group-item-heading resultTitle") #{result.title}
             h6(class="list-group-item-heading resultAuthorCreated") #{result.author}, #{result.created}
             h6(class="list-group-item-heading resultWordCount") #{result.wordCount} words

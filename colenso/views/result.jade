@@ -1,0 +1,7 @@
+div(class="list-group", id="results")
+  each result in data
+    a(href="/letters/#{result.uri}", class="list-group-item search-result", id="#{result.databaseURI}")
+      h4(class="list-group-item-heading resultTitle") #{result.title}
+      h6(class="list-group-item-heading resultAuthorCreated") #{result.author}, #{result.created}
+      h6(class="list-group-item-heading resultWordCount") #{result.wordCount} words
+      <p class="list-group-item-text resultContext">"#{result.context}"</p>
