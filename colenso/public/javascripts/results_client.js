@@ -59,9 +59,22 @@ $("#searchFilterButton").click(function(){
     var results = $(".search-result").length;
     var queryPath = $('.searchTerm').text();
     queryPath = queryPath + " > " + $("#searchFilterInput").val();
-
+    $("#searchFilterInput").val("")
     $('.searchTerm').text(queryPath);
     $('.resultsCount').text(results);
+    if ($("#resultType").text() === "Advanced"){
+      $(".resultAuthorCreated").hide();
+      $(".resultWordCount").hide();
+      $(".resultContext").hide();
+      $(".resultsCount").hide();
+      $(".searchTerm").hide();
+    } else {
+      $(".resultAuthorCreated").show();
+      $(".resultWordCount").show();
+      $(".resultContext").show();
+      $(".resultsCount").show();
+      $(".searchTerm").show();
+    }
     buildAndSetDownloadHref();
   });
 });
