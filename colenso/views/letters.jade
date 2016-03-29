@@ -4,9 +4,20 @@ block content
   div(class="row")
     div(class="col-xs-8 col-xs-offset-2")
       a(href="#{letterID}/download") Download
+      a(id="edit") Edit
+
+      a(href="#{letterID}" id="cancel") Cancel
       a(href="#{letterID}/delete") Delete
   div(class="row")
     div(class="col-xs-8 col-xs-offset-2")
-      !{data}
+      div(id="xmlData")
+        !{data}
+      div(id="textData")
+        form(action="#{letterID}/save", method="post")
+          textarea(rows="20", class="form-control", id="teiTextArea", name="editedXML")
+            !{data}
+          a(id="validate") Validate
+          input(type="submit", value="Save", id="saveButton")
+      div(id="validation")
 
   script(src="../javascripts/letters_client.js")

@@ -64,11 +64,32 @@ router.get('/:letter/delete', function(req, res, next){
   client.execute(`DELETE "%FILE%"`.replace("%FILE%", req.params.letter + ".xml"), function(error, result){
     if (!error) {
       console.log(result.result);
+      res.redirect("/");
     } else {
       console.log(error);
     }
   });
   client.execute("CLOSE Colenso");
+});
+
+var replaceQuery = `
+  XQUERY declare default element namespace 'http://www.tei-c.org/ns/1.0';
+  for $letter in db:open("Colenso")
+  where contains(document-uri($letter), "%LETTERID%")
+  return replace node $letter/TEI with %DATA%
+`
+
+router.post('/:letter/save', function(req, res, next){
+  var xml = req.body.editedXML;
+  client.execute(replaceQuery.replace("%LETTERID%", req.params.letter).replace("%DATA%", xml), function(error, result){
+    if (!error) {
+      console.log("Successfully updated");
+      res.redirect('/letters/' + req.params.letter);
+      console.log(result.result);
+    } else {
+      console.log(error);
+    }
+  });
 });
 
 module.exports = router;
