@@ -3,14 +3,19 @@ extends layout
 block content
   div(class='page-header')
     h1 Search Results
-    h4 search query blah blah
+    a(id="resultType") Advanced
+    h4(class="searchTerm") Search term: #{query}
+    h6(class="resultsCount") #{results} results
+
   div(class="row")
     div(class="col-xs-8 col-xs-offset-2")
       div(class="list-group")
         each result in data
           a(href="/letters/#{result.uri}", class="list-group-item")
-            h4(class="list-group-item-heading") #{result.title}
-            <p class="list-group-item-text">#{result.author}</p>
+            h4(class="list-group-item-heading resultTitle") #{result.title}
+            h6(class="list-group-item-heading resultAuthorCreated") #{result.author}, #{result.created}
+            h6(class="list-group-item-heading resultWordCount") #{result.wordCount} words
+            <p class="list-group-item-text resultContext">"#{result.context}"</p>
 
 
 
