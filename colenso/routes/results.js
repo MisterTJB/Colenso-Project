@@ -3,6 +3,10 @@ var router = express.Router();
 
 var basex = require('basex');
 var client = new basex.Session("127.0.0.1", 1984, "admin", "admin");
+var jsonfile = require('jsonfile');
+var util = require('util');
+var file = "logs/search.json";
+
 
 var namespace = "XQUERY declare default element namespace 'http://www.tei-c.org/ns/1.0';";
 
@@ -11,8 +15,7 @@ function formatResults(parsedResults){
   var formattedResults = [];
   for (var i=0; i < parsedResults.length; i++){
     var result = parsedResults[i][1];
-    console.log(result);
-    result.databaseURI = result.uri
+    result.databaseURI = result.uri;
     if (!uniqueIDs.has(result.databaseURI)){
       var uriComponents = result.uri.split("/");
       var documentIdentifier = uriComponents[uriComponents.length - 1].replace('.xml', '');
@@ -77,8 +80,19 @@ function advancedSearch(xquery){
 
 }
 
+function logSearch(newData){
+  jsonfile.readFile(file, function(err, obj) {
+    obj.push(newData);
+    jsonfile.writeFile(file, obj, function(err){
+      console.log(err);
+    });
+  });
+}
+
 /* GET users listing. */
 router.get('/', function(req, res, next) {
+  var data= {search: req.query.q, type: req.query.type}
+  logSearch(data);
 
   var query = basicSearch(req.query.q);
   if (req.query.type === 'advanced') {

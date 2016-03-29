@@ -19,6 +19,7 @@
     "basex": "~0.7.0",
     "multer": "~1.1.0",
     "libxml-xsd": "~0.5.2",
-    "archiver": "~0.21.0"
+    "archiver": "~0.21.0",
+    "jsonfile": "~2.2.3"
   }
 }
