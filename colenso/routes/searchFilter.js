@@ -3,6 +3,8 @@ var router = express.Router();
 var basex = require('basex');
 var client = new basex.Session("127.0.0.1", 1984, "admin", "admin");
 
+var Archiver = require('archiver');
+
 var namespace = "XQUERY declare default element namespace 'http://www.tei-c.org/ns/1.0';";
 
 function basicSearch(searchTerms, subset){
@@ -69,6 +71,28 @@ function formatResults(parsedResults){
   }
   return formattedResults;
 }
+
+router.get('/download', function(req, res, next){
+
+
+  var zip = Archiver('zip');
+
+    // Send the file to the page output.
+    zip.pipe(res);
+
+    for (param in req.query){
+      var name = req.query[param];
+      var savePath = name.split("/")[name.split("/").length - 1]
+      name = "public/" + name;
+      zip.file(name, {name: savePath});
+    }
+    zip.finalize(function(err, bytes){
+      if(err){
+        console.log(err);
+      }
+    });
+
+});
 
 
 router.post('/', function(req, res, next) {

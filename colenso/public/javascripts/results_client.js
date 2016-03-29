@@ -3,12 +3,26 @@
 $("body tei teiheader filedesc titlestmt title").replaceWith('<teititle>' +
  $('body tei teiheader filedesc titlestmt title').html() +'</teititle>');
 
+function buildAndSetDownloadHref(){
+  console.log("About to set HREF");
+  var downloadHref = "/searchFilter/download?"
+  var count = 0;
+  $(".search-result").filter(":visible").each(function(){
+      downloadHref += count + "=" + this.id + "&";
+      count += 1;
+  });
+  $("#download").attr("href", encodeURI(downloadHref.slice(0, downloadHref.length - 1)));
+
+}
+
 $(document).ready(function(){
   $(".resultAuthorCreated").hide();
   $(".resultWordCount").hide();
   $(".resultContext").hide();
   $(".resultsCount").hide();
   $(".searchTerm").hide();
+  buildAndSetDownloadHref();
+
 
 });
 
@@ -48,6 +62,6 @@ $("#searchFilterButton").click(function(){
 
     $('.searchTerm').text(queryPath);
     $('.resultsCount').text(results);
-
+    buildAndSetDownloadHref();
   });
 });

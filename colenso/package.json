@@ -18,6 +18,7 @@
     "eslint": "~2.4.0",
     "basex": "~0.7.0",
     "multer": "~1.1.0",
-    "libxml-xsd": "~0.5.2"
+    "libxml-xsd": "~0.5.2",
+    "archiver": "~0.21.0"
   }
 }
