@@ -1,16 +1,16 @@
 extends layout
 
 block content
-  div(class='page-header')
+  div(class='page-header col-xs-6')
     h1 Search Results
-    a(id="resultType") Advanced
-    a(id="?")  Download
+
 
     div(class="input-group")
       input(type="search" class="form-control" placeholder="Search within results" id="searchFilterInput")
       span(class="input-group-btn")
         button(class="btn btn-default", type="button", id="searchFilterButton") Search
-
+    a(id="resultType") Advanced
+    a(id="?")  Download
     h5(class="searchTerm") Search term: #{query.q}
     h6(class="resultsCount") #{results} results
 
