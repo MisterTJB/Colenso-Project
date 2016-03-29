@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  table(class="table table-striped")
+    thead()
+      th() Query
+      th() Type
+    each search in searchData
+      tr()
+        td() #{search.search}
+        td() #{search.type}
