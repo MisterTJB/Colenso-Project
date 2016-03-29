@@ -4,6 +4,9 @@ var basex = require('basex');
 var client = new basex.Session("127.0.0.1", 1984, "admin", "admin");
 
 var Archiver = require('archiver');
+var jsonfile = require('jsonfile');
+var util = require('util');
+var file = "logs/search.json";
 
 var namespace = "XQUERY declare default element namespace 'http://www.tei-c.org/ns/1.0';";
 
@@ -94,10 +97,37 @@ router.get('/download', function(req, res, next){
 
 });
 
+function logSearch(newData){
+  jsonfile.readFile(file, function(err, obj) {
+    obj.push(newData);
+    jsonfile.writeFile(file, obj, function(err){
+      console.log(err);
+    });
+  });
+}
+
+function prepareDate(date) {
+
+  function pad(number) {
+    if (number < 10) {
+      return '0' + number;
+    }
+    return number;
+  }
+
+  return date.getUTCFullYear() +
+      '-' + pad(date.getMonth() + 1) +
+      '-' + pad(date.getDate()) +
+      ' ' + pad(date.getHours()) +
+      ':' + pad(date.getMinutes()) +
+      ':' + pad(date.getSeconds());
+};
+
 
 router.post('/', function(req, res, next) {
   var documents = req.body['uris[]'];
   var query = req.body.q;
+
 
   var filterOn = `(`;
   for (var i=0; i < documents.length - 1; i++){
@@ -112,6 +142,9 @@ router.post('/', function(req, res, next) {
       var parsedResults = JSON.parse(result.result).slice(2);
       var formattedResults = formatResults(parsedResults);
       res.send(res.render('result', {query: query, data: formattedResults, results: formattedResults.length}));
+      var data= {time: prepareDate(new Date()), user: req.cookies.user, search: query, type: "Nested", count: formattedResults.length};
+      logSearch(data);
+
 
     } else {
       console.log(error);

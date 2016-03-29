@@ -7,6 +7,7 @@ var file = "logs/search.json";
 
 router.get('/', function(req, res, next) {
   var searches = jsonfile.readFileSync(file);
+  searches.reverse();
   res.render('admin', {searchData: searches})
 
 });

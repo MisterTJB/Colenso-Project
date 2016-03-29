@@ -9,7 +9,14 @@ block body
 
   block header
     +navbar("Colenso Project", "dropdown_menu")
-      +nav_item("/", "active") Home
+      +nav_item("/", "active") Search
       +nav_item("/upload") Upload
-      +nav_item("/admin") Admin
+      +nav_item("/admin") History
+      div(class="navbar-form navbar-right")
+        input(type="text" class="form-control" placeholder="Username" id="username")
+        input(type="submit" value="Login" class="btn btn-default" id="loginButton")
+      li()
+        a(id="logoutButton") Logout
   block content
+
+  script(src="../javascripts/layout_client.js")

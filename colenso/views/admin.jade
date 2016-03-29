@@ -1,11 +1,23 @@
 extends layout
 
 block content
-  table(class="table table-striped")
-    thead()
-      th() Query
-      th() Type
-    each search in searchData
-      tr()
-        td() #{search.search}
-        td() #{search.type}
+  div(class=row)
+    div(class=col-xs-8 col-xs-offset-2)
+
+  div(class="row")
+    div(class="col-xs-8 col-xs-offset-2")
+      table(class="table table-striped table-responsive")
+        thead()
+          tr()
+            th() Time
+            th() User
+            th() Type
+            th() Hits
+            th() Query
+        each search in searchData
+          tr()
+            td() #{search.time}
+            td() #{search.user}
+            td() #{search.type}
+            td() #{search.count}
+            td() #{search.search}

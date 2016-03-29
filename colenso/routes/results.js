@@ -89,10 +89,25 @@ function logSearch(newData){
   });
 }
 
+function prepareDate(date) {
+
+  function pad(number) {
+    if (number < 10) {
+      return '0' + number;
+    }
+    return number;
+  }
+
+  return date.getUTCFullYear() +
+      '-' + pad(date.getMonth() + 1) +
+      '-' + pad(date.getDate()) +
+      ' ' + pad(date.getHours()) +
+      ':' + pad(date.getMinutes()) +
+      ':' + pad(date.getSeconds());
+};
+
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  var data= {search: req.query.q, type: req.query.type}
-  logSearch(data);
 
   var query = basicSearch(req.query.q);
   if (req.query.type === 'advanced') {
@@ -104,6 +119,9 @@ router.get('/', function(req, res, next) {
       var parsedResults = JSON.parse(result.result).slice(2);
       var formattedResults = formatResults(parsedResults);
       res.render('results', {query: req.query, data: formattedResults, results: formattedResults.length});
+      var data= {time: prepareDate(new Date()), user: req.cookies.user, search: req.query.q, type: req.query.type, count: formattedResults.length};
+      logSearch(data);
+
 
     } else {
       console.log(error);
