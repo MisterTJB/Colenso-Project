@@ -15,6 +15,16 @@ function buildAndSetDownloadHref(){
 
 }
 
+function updateLocalStorage(){
+
+  var resultURIs = [];
+  $(".search-result").filter(":visible").each(function(){
+      resultURIs.push(this.id);
+  });
+  sessionStorage.setItem("searchResults", JSON.stringify(resultURIs));
+
+}
+
 $(document).ready(function(){
   $(".resultAuthorCreated").hide();
   $(".resultWordCount").hide();
@@ -22,7 +32,7 @@ $(document).ready(function(){
   $(".resultsCount").hide();
   $(".searchTerm").hide();
   buildAndSetDownloadHref();
-
+  updateLocalStorage();
 
 });
 
@@ -33,6 +43,7 @@ $("#resultType").click(function(){
   $(".resultsCount").toggle();
   $(".searchTerm").toggle();
 
+
   if ($("#resultType").text() === "Simple"){
     $("#resultType").text("Advanced");
   } else {
@@ -42,13 +53,13 @@ $("#resultType").click(function(){
 });
 
 
+
 $("#searchFilterButton").click(function(){
 
   var resultURIs = [];
   $(".search-result").each(function(){
     resultURIs.push(this.id);
   });
-  console.log(resultURIs);
   data = {
     uris: resultURIs,
     q: $("#searchFilterInput").val()
@@ -76,5 +87,6 @@ $("#searchFilterButton").click(function(){
       $(".searchTerm").show();
     }
     buildAndSetDownloadHref();
+    updateLocalStorage();
   });
 });

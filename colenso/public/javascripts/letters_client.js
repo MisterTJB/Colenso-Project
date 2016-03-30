@@ -10,6 +10,7 @@ $(document).ready(function(){
   $("#cancel").hide();
   $("#validation").hide();
   $("#saveButton").prop('disabled', true);
+  setNextAndPreviousLetter();
 });
 
 $("#edit").on('click', function(event){
@@ -53,3 +54,50 @@ $("#validate").on('click', function(e){
 
   });
 });
+
+function uriToLetterID(uri){
+  var id = uri.split("/")[uri.split("/").length - 1].split(".")[0];
+  return id;
+}
+
+function urisToDocumentIDs(uris){
+  var retVal = [];
+  for (var i=0; i < uris.length; i++){
+    retVal.push(uriToLetterID(uris[i]));
+  }
+  return retVal;
+}
+
+function setNextAndPreviousLetter(){
+  var currentLetterID = window.location.href.split("/")[window.location.href.split("/").length - 1];
+
+  var lettersInResultsetURIs = JSON.parse(sessionStorage.getItem("searchResults"));
+  var lettersInResultsetIDs = urisToDocumentIDs(lettersInResultsetURIs);
+  var currentLetterArrayPosition = lettersInResultsetIDs.indexOf(currentLetterID);
+
+  var nextIndex = Math.min(lettersInResultsetIDs.length - 1, currentLetterArrayPosition + 1);
+  var prevIndex = Math.max(0, currentLetterArrayPosition - 1);
+
+  var nextLetterID = lettersInResultsetIDs[nextIndex];
+  var previousLetterID = lettersInResultsetIDs[prevIndex];
+  setNextLetter(nextLetterID);
+  setPreviousLetter(previousLetterID);
+}
+
+function setNextLetter(nextLetterID){
+  var currentLetterID = window.location.href.split("/")[window.location.href.split("/").length - 1];
+  if (currentLetterID === nextLetterID) {
+    $("#nextLetter").toggleClass("not-active")
+  } else {
+    $("#nextLetter").attr("href", "/letters/" + nextLetterID);
+  }
+}
+
+function setPreviousLetter(previousLetterID){
+  var currentLetterID = window.location.href.split("/")[window.location.href.split("/").length - 1];
+  if (currentLetterID === previousLetterID) {
+    $("#previousLetter").toggleClass("not-active");
+  } else {
+    $("#previousLetter").attr("href", "/letters/" + previousLetterID);
+  }
+}
