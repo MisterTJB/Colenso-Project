@@ -16,9 +16,11 @@ XQUERY
 let $documentURI := document-uri(%IDENTIFIER%)
 return db:delete("Colenso", $documentURI)`
 
+
 /* GET users listing. */
 router.get('/:letter', function(req, res, next) {
-  console.log(next);
+
+
   var interpolatedQuery = query.replace("%LETTERID%", req.params.letter);
   console.log(query);
   var xmlData = client.execute(interpolatedQuery, function(error, result){
