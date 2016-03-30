@@ -22,7 +22,7 @@ router.get('/:letter', function(req, res, next) {
 
 
   var interpolatedQuery = query.replace("%LETTERID%", req.params.letter);
-  console.log(query);
+
   var xmlData = client.execute(interpolatedQuery, function(error, result){
 
     if (!error && result.result.length > 0) {
