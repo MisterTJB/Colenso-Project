@@ -48,7 +48,7 @@ function basicSearch(searchTerms){
     let $wordCount := count(ft:tokenize(doc($uri)))
 
     let $context := ft:extract($match[. contains text "%SEARCH_TERMS%"], "b")
-  order by $score descending
+  order by $created ascending
   return
     <result
           title="{$title}"
