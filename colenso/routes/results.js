@@ -36,7 +36,7 @@ function basicSearch(searchTerms){
   searchString = ` json:serialize(
   <results>{
     let $colenso := fn:collection("Colenso")
-    let $matches := $colenso//text()[. contains text "%SEARCH_TERMS%"]
+    let $matches := $colenso//text()[. contains text '%SEARCH_TERMS%']
     for $match in $matches
 
     let $uri := base-uri($match)
@@ -47,7 +47,7 @@ function basicSearch(searchTerms){
     let $created := doc($uri)//creation/date/@when
     let $wordCount := count(ft:tokenize(doc($uri)))
 
-    let $context := ft:extract($match[. contains text "%SEARCH_TERMS%"], "b")
+    let $context := ft:extract($match[. contains text '%SEARCH_TERMS%'], "b")
   order by $created ascending
   return
     <result
@@ -113,7 +113,7 @@ router.get('/', function(req, res, next) {
   if (req.query.type === 'advanced') {
     query = advancedSearch(req.query.q);
   }
-
+  console.log(query);
   client.execute(query, function(error, result){
     if (!error) {
       var parsedResults = JSON.parse(result.result).slice(2);
