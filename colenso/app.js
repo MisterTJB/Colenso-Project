@@ -21,6 +21,10 @@ var tagging = require('./routes/tagging');
 
 var app = express();
 
+app.locals.ucfirst = function(value){
+    return value.charAt(0).toUpperCase() + value.slice(1);
+};
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -39,7 +43,7 @@ app.use('/results', results);
 app.use('/letters', letters);
 app.use('/upload', upload);
 app.use('/validate', validate);
-app.use('/admin', admin);
+app.use('/history', admin);
 app.use('/saved-searches', searches);
 
 // Endpoints

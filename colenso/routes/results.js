@@ -68,13 +68,20 @@ function advancedSearch(xquery){
   <results>{
   for $letter in db:open("Colenso")
   where $letter%XQUERYEXPRESSION%
+  let $uri := document-uri($letter)
+  let $sent :=  doc($uri)//correspAction[@type = "sent"]/date/text()
+  let $created := doc($uri)//creation/date/@when
+  let $wordCount := count(ft:tokenize(doc($uri)))
 
   return
 
         <result
           title="{$letter//title/text()}"
           author="{$letter/TEI/teiHeader/fileDesc/titleStmt/author/name/text()}"
-          uri="{document-uri($letter)}"/>
+          uri="{document-uri($letter)}"
+          sent="{$sent}"
+          created="{$created}"
+          wordCount="{$wordCount}"/>
     }</results>, map{'format': 'jsonml'})`
   return namespace + searchString.replace("%XQUERYEXPRESSION%", xquery);
 

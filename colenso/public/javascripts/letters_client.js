@@ -4,12 +4,17 @@
 $("#xmlData tei teiheader filedesc titlestmt title").replaceWith('<teititle>' +
  $('#xmlData tei teiheader filedesc titlestmt title').html() +'</teititle>');
 
+ // Replace <text> with <teitext> to prevent conflict with HTML <title>
+ $("#xmlData tei text").replaceWith('<teitext>' +
+  $('#xmlData tei text').html() +'</teitext>');
+
 $(document).ready(function(){
   $("#textData").hide();
   $("#save").hide();
   $("#cancel").hide();
   $("#validation").hide();
   $("#saveButton").prop('disabled', true);
+  $("teiheader").after("<hr>");
   setNextAndPreviousLetter();
 });
 
@@ -36,6 +41,8 @@ $("#teiTextArea").on('input',function(e){
   $(textData).appendTo("#xmlData");
   $("#xmlData tei teiheader filedesc titlestmt title").replaceWith('<teititle>' +
    $('#xmlData tei teiheader filedesc titlestmt title').html() +'</teititle>');
+   $("#xmlData tei text").replaceWith('<teitext>' +
+    $('#xmlData tei text').html() +'</teitext>');
 });
 
 $("#validate").on('click', function(e){
@@ -59,6 +66,10 @@ function uriToLetterID(uri){
   var id = uri.split("/")[uri.split("/").length - 1].split(".")[0];
   return id;
 }
+
+$("#deleteModalButton").click(function(){
+  $.get(window.location.href + "/delete");
+})
 
 function urisToDocumentIDs(uris){
   var retVal = [];

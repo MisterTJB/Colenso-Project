@@ -1,15 +1,19 @@
 extends layout
 
+block styles
+
+  link(rel="stylesheet",href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css")
+  link(rel="stylesheet", href="../stylesheets/style.css")
+  link(rel="stylesheet", href="../stylesheets/letters.css")
+
 block content
   div(class="row")
     div(class="col-xs-8 col-xs-offset-2")
-      a(href="#{letterID}/download") Download
-      a(id="edit") Edit
+      a(href="#{letterID}/download" class="btn btn-default") Download
+      a(id="edit" class="btn btn-default") Edit
 
-      a(href="#{letterID}" id="cancel") Cancel
-      a(href="#{letterID}/delete") Delete
-      a(id="previousLetter") Previous
-      a(id="nextLetter") Next
+      a(id="previousLetter" class="btn btn-default") Previous
+      a(id="nextLetter" class="btn btn-default") Next
   div(class="row")
     div(class="col-xs-8 col-xs-offset-2")
       div(id="xmlData")
@@ -18,8 +22,21 @@ block content
         form(action="#{letterID}/save", method="post")
           textarea(rows="20", class="form-control", id="teiTextArea", name="editedXML")
             !{data}
-          a(id="validate") Validate
-          input(type="submit", value="Save", id="saveButton")
+          a(href="#{letterID}" id="cancel" class="btn btn-default") Cancel
+          a(id="validate" class="btn btn-info") Validate
+          input(type="submit", value="Save", id="saveButton", class="btn btn-success")
+          a(class="btn btn-danger" data-toggle="modal",data-target="#deleteModal") Delete
+          div(class="modal fade" id="deleteModal")
+            div(class="modal-dialog")
+              div(class="modal-content")
+                div(class="modal-header")
+                  button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                    span(aria-hidden="true")&times;
+                  h4 Are you sure you want to delete this file?
+                  div(class="modal-footer")
+                    button(class="btn btn-default" data-dismiss="modal") Cancel
+                    a(id="deleteButton" href="#{letterID}/delete" class="btn btn-danger") Delete
       div(id="validation")
+
 
   script(src="../javascripts/letters_client.js")

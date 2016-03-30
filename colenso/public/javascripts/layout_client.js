@@ -11,7 +11,6 @@ function getCookie(cname) {
 
 $(document).ready(function(){
 
-
   if (getCookie("user") === "") {
     $("#logoutButton").hide();
     $("#loginButton").show();
@@ -21,6 +20,7 @@ $(document).ready(function(){
     $("#loginButton").hide();
     $("#username").hide();
   }
+
 });
 
 $("#loginButton").click(function(){

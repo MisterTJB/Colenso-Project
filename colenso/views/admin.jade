@@ -3,7 +3,7 @@ extends layout
 block content
   div(class="row")
     div(class="col-xs-8 col-xs-offset-2")
-      input(type="text" class="inline-form" placeholder="Filter by user" id="userFilter")
+      input(type="text" class="inline-form" placeholder="Filter by term" id="userFilter")
       table(class="table table-striped table-responsive")
         thead()
           tr()
@@ -17,7 +17,7 @@ block content
           tr()
             td() #{search.time}
             td(class='user-name') #{search.user}
-            td() #{search.type}
+            td() #{ucfirst(search.type)}
             td() #{search.count}
             td() #{search.search}
 
