@@ -13,7 +13,6 @@ function validateXML(data, callback) {
 
 router.post('/', function(req, res, next) {
   var xmlData = '<?xml version="1.0" encoding="UTF-8"?>' + req.body.xml;
-  console.log(xmlData);
 
 
   validateXML(xmlData, function(err, validationErrors){
