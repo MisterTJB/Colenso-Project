@@ -12,6 +12,7 @@ var letters = require('./routes/letters');
 var upload = require('./routes/upload');
 var validate = require('./routes/validate');
 var admin = require('./routes/admin');
+var searches = require('./routes/saved-searches');
 
 // Endpoints
 var searchFilter = require('./routes/searchFilter');
@@ -39,6 +40,7 @@ app.use('/letters', letters);
 app.use('/upload', upload);
 app.use('/validate', validate);
 app.use('/admin', admin);
+app.use('/saved-searches', searches);
 
 // Endpoints
 app.use('/searchFilter', searchFilter);

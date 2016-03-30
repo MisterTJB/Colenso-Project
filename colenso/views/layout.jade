@@ -11,7 +11,9 @@ block body
     +navbar("Colenso Project", "dropdown_menu")
       +nav_item("/", "active") Search
       +nav_item("/upload") Upload
-      +nav_item("/admin") History
+      +nav_item_dropdown("#")(label="Tools")
+        +nav_item("/admin") Search History
+        +nav_item("/saved-searches") Saved Searches
       div(class="navbar-form navbar-right")
         input(type="text" class="form-control" placeholder="Username" id="username")
         input(type="submit" value="Login" class="btn btn-default" id="loginButton")
