@@ -6,7 +6,21 @@ block content
     span(class="input-group-btn")
       button(class="btn btn-default", type="button", id="searchFilterButton") Search
   a(id="resultType") Advanced
-  a(id="download")  Download
+  a(id="download") Download
+  button.btn.btn-primary(data-toggle="modal",data-target="#tagModal") Tag
+  div(class="modal fade" id="tagModal")
+    div(class="modal-dialog")
+      div(class="modal-content")
+        div(class="modal-header")
+          button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+            span(aria-hidden="true")&times;
+          h4 Tag these results
+          div(class="modalBody")
+            input(type="text", class="form-control", id="resultTagName", placeholder="Name")
+            textarea(class="form-control", id="resultTagDescription", placeholder="Description")
+          div(class="modal-footer")
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" id="saveTagButton" class="btn btn-primary">Tag</button>
   h5(class="searchTerm") Search term: #{query.q}
   h6(class="resultsCount") #{results} results
 

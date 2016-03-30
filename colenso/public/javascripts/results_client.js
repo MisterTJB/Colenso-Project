@@ -57,8 +57,8 @@ $("#resultType").click(function(){
 $("#searchFilterButton").click(function(){
 
   var resultURIs = [];
-  $(".search-result").each(function(){
-    resultURIs.push(this.id);
+  $(".search-result").filter(":visible").each(function(){
+      resultURIs.push(this.id);
   });
   data = {
     uris: resultURIs,
@@ -89,4 +89,17 @@ $("#searchFilterButton").click(function(){
     buildAndSetDownloadHref();
     updateLocalStorage();
   });
+});
+
+$("#saveTagButton").click(function(){
+  var resultURIs = [];
+  $(".search-result").filter(":visible").each(function(){
+      resultURIs.push(this.id);
+  });
+  data = {
+    documents: resultURIs,
+    name: $("#resultTagName").val(),
+    description: $("#resultTagDescription").val()
+  }
+  $.post("/tag", data);
 });

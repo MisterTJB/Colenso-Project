@@ -5,14 +5,18 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-
-var routes = require('./routes/index');
+// Pages
+var index = require('./routes/index');
 var results = require('./routes/results');
 var letters = require('./routes/letters');
 var upload = require('./routes/upload');
 var validate = require('./routes/validate');
-var searchFilter = require('./routes/searchFilter');
 var admin = require('./routes/admin');
+
+// Endpoints
+var searchFilter = require('./routes/searchFilter');
+var tagging = require('./routes/tagging');
+
 
 var app = express();
 
@@ -28,13 +32,18 @@ app.use(bodyParser.urlencoded({ extended: false, limit: '1mb' }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
+// Pages
+app.use('/', index);
 app.use('/results', results);
 app.use('/letters', letters);
 app.use('/upload', upload);
 app.use('/validate', validate);
-app.use('/searchFilter', searchFilter);
 app.use('/admin', admin);
+
+// Endpoints
+app.use('/searchFilter', searchFilter);
+app.use('/tag', tagging);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
