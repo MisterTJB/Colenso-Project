@@ -1,6 +1,6 @@
 # Colenso Project
 
-# REFER TO [CLOSED ISSUES](https://github.com/MisterTJB/Colenso-Project/issues?q=is%3Aissue+is%3Aclosed) FOR A RECORD OF COMPLETED SCENARIOS (i.e. all scenarios have been completed and their particular commit noted)
+# REFER TO [CLOSED ISSUES](https://github.com/MisterTJB/Colenso-Project/issues?q=is%3Aissue+is%3Aclosed) FOR A RECORD OF COMPLETED SCENARIOS (i.e. all scenarios (issues 1-10) have been completed)
 
 ## Background
 You will be given a collection of XML files representing a collection of historical New Zealand documents - primarily letters. You will design and build a website to allow users to browse, explore, and work with these documents.
