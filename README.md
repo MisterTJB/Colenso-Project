@@ -1,5 +1,7 @@
 # Colenso Project
 
+# REFER TO [CLOSED ISSUES](https://github.com/MisterTJB/Colenso-Project/issues?q=is%3Aissue+is%3Aclosed) FOR A RECORD OF COMPLETED SCENARIOS (i.e. all scenarios have been completed and their particular commit noted)
+
 ## Background
 You will be given a collection of XML files representing a collection of historical New Zealand documents - primarily letters. You will design and build a website to allow users to browse, explore, and work with these documents.
 The requirements and personas for this assignments are based on the Colenso Project. Students who get an A- grade or higher will be asked to allow researchers from the Colenso Project access to their video to provide more detailed feedback (this will not be marked - this is useful because they are the actual target audience and they hire programmers). Selected projects (as chosen by Colenso Project researchers) may be invited to be promoted as viable prototypes for digital humanities projects.
